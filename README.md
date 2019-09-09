@@ -40,6 +40,20 @@ OPEN => mongo (If it was shut down.)
 
 ....>use ozondb; 
 
+/!\ It will be displayed in the terminal "switched to db ozondb
+
+    > this arrow means that mongo is waiting for the next instruction.
+    
+ To print information about the mongodb:
+ 
+ => to see the current database we working in:
+ >db;
+ =>
+ 
+ 
+    
+ 
+
 
 
 
