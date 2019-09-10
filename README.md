@@ -73,7 +73,7 @@ To show the information inside the collcetion (it is supposed that mongo is open
 
 > db.inventory.find();
 
-#Mogondb Compass 
+# Mogondb Compass 
 
 It is a graphical tool that allows you to easily analyse and understand your database schema, as well as allowing you to visually construct queries, all without having to know MongoDB’s.
 
@@ -81,21 +81,29 @@ https://www.mongodb.com/blog/post/getting-started-with-mongodb-compass
 
 https://www.mongodb.com/products/compass
 
+## Robomongo
+
+https://robomongo.org/
+
 
 # DOCKER = Tools for running application in an isolated environnement. It gives an advantage similaire to running your application inside a virtual machine, so all your apps runs in the exactly same env and it will always act the if it runs in your env, in the server or your computer.
 
-##Docker uses a special feature of the linux file system to create isolated environnement.
+## Docker uses a special feature of the linux file system to create isolated environnement.
 
-##Dockers works with something called "containers" that are an  running instance of an image. An image is a template for creating the environnement you wanted to snapshot of a systeme at a particular time. The os the software the application all contained inside the image.
+## Dockers works with something called "containers" that are an  running instance of an image. An image is a template for creating the environnement you wanted to snapshot of a systeme at a particular time. The os the software the application all contained inside the image.
 
-##The docker file. It a file with a list of steps to perform in order to cretate the image for example to configure the OP, copy the projects files in the right places ect.
+## The docker file. It a file with a list of steps to perform in order to cretate the image for example to configure the OP, copy the projects files in the right places ect.
 
-##Containers. It is what you got when you run the image.
+## Containers. It is what you got when you run the image.
  => So with docker file you build the image you run the image and you got the container. 
 
 DOCKER Set up:
 https://github.com/becodeorg/LIE-Hamilton-2.12/blob/master/contenu/03-la-montagne/03-trouvkach/docker-readme.md
 
+
+# Precommit:
+
+https://githooks.com/
 
 
 
