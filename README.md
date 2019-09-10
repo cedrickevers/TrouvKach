@@ -106,14 +106,17 @@ https://github.com/becodeorg/LIE-Hamilton-2.12/blob/master/contenu/03-la-montagn
 https://githooks.com/
 
 https://www.youtube.com/watch?v=D5Q5WhGT0w8
-https://towardsdatascience.com/15-docker-commands-you-should-know-970ea5203421
 
  
+    Detached mode, shown by the option --detach or -d, means that a Docker container runs in the background of your terminal. It does not receive input or display output.
+    -p to specify (the port MDB uses) .
     
- 
+    -it is short for --interactive + --tty when you docker run with this command.. it would take you straight inside of the container,, where -d is short for --detach which means you just run the container and then detach from it so basically you run container in the background.. edit : so if you run docker container with-itd it would run the-it options and detach you from the container, so your container still running in the background even without any default app to run..
+ /!\
+#trouvkachmongodb
+=> docker run --name trouvkachmongodb mongo:4.0.4
 
-
-
+https://nickjanetakis.com/blog/understanding-how-the-docker-daemon-and-docker-cli-work-together
 
 
 
