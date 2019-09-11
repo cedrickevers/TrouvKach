@@ -15,11 +15,27 @@ const {APP_PORT} = process.env;
 const app = express();
 
 // Connect Mongodb
-mongoose.connect("mongodb://dev:dev@localhost/trouvkash", err => {
-    if (err) {
-        throw err;
-    }
-});
+/*mongoose.connect("mongodb://localhost:27017/admin", { useNewUrlParser: true });*/
+
+mongoose
+    .connect("mongodb://mongo:27017/admin", {
+        authSource: "admin",
+        user: "dev",
+        pass: "dev",
+        dbName: "trouvkash", // 'mydb' which is the default selected DB
+        useNewUrlParser: true,
+        reconnectTries: Number.MAX_VALUE,
+        reconnectInterval: 500, // Reconnect every 500ms
+        poolSize: 10, // Maintain up to 10 socket connections
+    })
+    .then(() => {
+        console.log("Successfully connected to the database");
+    })
+    .catch(err => {
+        console.error("Could not connect to the database. Exiting now...", err);
+        process.exit();
+    });
+
 // Schema terminals
 /*
 const terminalSchema = new mongoose.Schema({
@@ -49,7 +65,7 @@ app.get("/hello", (req, res) => {
 app.get("/atm", (req, res) => {
     console.log(`(${req.method.toUpperCase()})) ${req.url}`);
     terminals.findOne({latitude: 51.0569}, ok => console.log(ok));
-    res.send("fuck");
+    res.send("no");
 });
 
 app.get("/atm/[0-9A-Za-z]+", (req, res) => {
