@@ -106,9 +106,9 @@ app.post("/atm/[0-9A-Za-z]+", (req, res) => {
 //Checking if db has data
 app.get("/profile", (req, res) => {
     console.log(`ℹ️  (${req.method.toUpperCase()}) ${req.url}`);
-
+    const query = req.query;
     terminals
-        .find({address: "Mechelen"})
+        .find(query)
         .then(search => {
             res.send({
                 confirmation: "success",
