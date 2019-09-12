@@ -88,3 +88,22 @@ long = coord[1]
 
         )
 });
+
+
+app.get("/profile", (req, res) => {
+    console.log(`ℹ️  (${req.method.toUpperCase()}) ${req.url}`);
+    const query = req.query;
+    terminals
+        .find(query)
+        .then(search => {
+            res.send({
+                confirmation: "success",
+                data: search,
+            });
+        })
+        .catch(err => {
+            err.send({
+                confirmation: "fail",
+            });
+        });
+});
