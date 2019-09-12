@@ -108,11 +108,11 @@ app.get("/profile", (req, res) => {
     console.log(`ℹ️  (${req.method.toUpperCase()}) ${req.url}`);
 
     terminals
-        .find()
-        .then(latitude => {
+        .find({address: "Mechelen"})
+        .then(search => {
             res.send({
                 confirmation: "success",
-                data: latitude,
+                data: search,
             });
         })
         .catch(err => {
