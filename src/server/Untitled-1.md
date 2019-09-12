@@ -65,3 +65,26 @@ long = coord[1]
     //let urlArray = req.url.split('/')
     //let urlArraySize = req.url.split('/').length
     //res.send("L'id est " + urlArray[urlArraySize - 1]);
+
+
+    app.get("/profile", (req, res) => {
+    console.log(`ℹ️  (${req.method.toUpperCase()}) ${req.url}`);
+
+    terminals.find().then(profiles => {
+        res.send({
+            confirmation: "success",
+            data: profiles
+        })
+    })
+        .catch(err => {
+            res.send({
+                confirmation: "fail",
+            });
+        }
+
+
+
+
+
+        )
+});

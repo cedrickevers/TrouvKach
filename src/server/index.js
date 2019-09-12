@@ -103,6 +103,24 @@ app.post("/atm/[0-9A-Za-z]+", (req, res) => {
     ).save();
     res.send(`${latitude}+${longitude}`);
 });
+//Checking if db has data
+app.get("/profile", (req, res) => {
+    console.log(`ℹ️  (${req.method.toUpperCase()}) ${req.url}`);
+
+    terminals
+        .find()
+        .then(latitude => {
+            res.send({
+                confirmation: "success",
+                data: latitude,
+            });
+        })
+        .catch(err => {
+            err.send({
+                confirmation: "fail",
+            });
+        });
+});
 
 app.listen(APP_PORT, () =>
     console.log(`🚀 Server is listening on port ${APP_PORT}.`),
