@@ -7,12 +7,19 @@
  */
 
 import * as React from "react";
-
+import Button from "./button";
+import Infodisplay from "./infodisplay";
+import Infodisplaylocation from "./infodisplaylocation";
 const HelloWorld = () => (
     <div>
-        <h1>{"Hello, world!"}</h1>
+        <h1 className={"title"}>{"Trouvkach"}</h1>
         <hr />
-        <small>{"becode/trouvkach"}</small>
+        <small>{""}</small>
+        <div className={"info-container"}>
+            <Button />
+            <Infodisplay />
+            <Infodisplaylocation />
+        </div>
     </div>
 );
 
