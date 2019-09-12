@@ -13,7 +13,8 @@
     "work:server": "npx babel src/server -s --watch --verbose --out-dir bin/server",
     "build:client": "npx webpack --progress --profile --colors",
     "work:client": "npx webpack --env=dev --progress",
-    "build": "npm run build:server && npm run build:client"
+    "build": "npm run build:server && npm run build:client",
+    "dev:server": "npm run build && docker-compose build && docker-compose up"
   },
   "lint-staged": {
     "*.js": [
@@ -22,17 +23,18 @@
     ]
   },
   "devDependencies": {
-    "@babel/cli": "^7.1.0",
-    "@babel/core": "^7.1.0",
+    "@babel/cli": "^7.6.0",
+    "@babel/core": "^7.6.0",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
-    "@babel/plugin-proposal-decorators": "^7.1.0",
+    "@babel/plugin-proposal-decorators": "^7.6.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
-    "@babel/polyfill": "^7.0.0",
-    "@babel/preset-env": "^7.1.0",
+    "@babel/polyfill": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
     "@babel/preset-react": "^7.0.0",
     "@becode/eslint-config": "^0.6.0",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.2",
+    "css-loader": "^3.2.0",
     "eslint": "^6.3.0",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.3",
@@ -41,13 +43,17 @@
     "html-webpack-plugin": "^3.2.0",
     "husky": "^3.0.5",
     "lint-staged": "^9.2.5",
+    "node-sass": "^4.12.0",
     "prettier": "^1.18.2",
+    "sass-loader": "^8.0.0",
+    "style-loader": "^1.0.0",
     "uglifyjs-webpack-plugin": "^2.0.1",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
     "express": "^4.17.1",
+    "mongoose": "^5.7.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0"
   },
