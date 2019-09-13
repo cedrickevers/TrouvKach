@@ -107,3 +107,21 @@ app.get("/profile", (req, res) => {
             });
         });
 });
+
+app.get("/profile", (req, res) => {
+    console.log(`ℹ️  (${req.method.toUpperCase()}) ${req.url}`);
+    // const query = req.query;
+    terminals
+        .find({latitude: {$lt: 50}})
+        .then(search => {
+            res.send({
+                confirmation: "success",
+                data: search,
+            });
+        })
+        .catch(err => {
+            err.send({
+                confirmation: "fail",
+            });
+        });
+});

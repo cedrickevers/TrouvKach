@@ -69,6 +69,12 @@ app.get("/atm", (req, res) => {
         res.send(JSON.stringify(ok));
     });
 });
+app.get("/profile/update", (req, res) => {
+    res.send({
+        confirm: "success",
+        data: "data endpoint",
+    });
+});
 
 app.get("/atm/[0-9A-Za-z]+", (req, res) => {
     console.log(`(${req.method.toUpperCase()})) ${req.url}`);
@@ -106,9 +112,15 @@ app.post("/atm/[0-9A-Za-z]+", (req, res) => {
 //Checking if db has data
 app.get("/profile", (req, res) => {
     console.log(`ℹ️  (${req.method.toUpperCase()}) ${req.url}`);
-    // const query = req.query;
+
+    let filters = req.query;
+    if (req.query.latitude != null) {
+        filters = {
+            latitude: {$gt: req.query.latitude},
+        };
+    }
     terminals
-        .find({latitude: {$lt: 50}})
+        .find(filters)
         .then(search => {
             res.send({
                 confirmation: "success",
@@ -120,6 +132,15 @@ app.get("/profile", (req, res) => {
                 confirmation: "fail",
             });
         });
+});
+app.get("/profile:/id", (req, res) => {
+    console.log(`ℹ️  (${req.method.toUpperCase()}) ${req.url}`);
+
+    const id = req.params.id;
+    res.send({
+        confirmation: "ok",
+        data: id,
+    });
 });
 
 app.listen(APP_PORT, () =>
