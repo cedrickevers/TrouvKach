@@ -70,6 +70,26 @@ app.get("/atm", (req, res) => {
     });
 });
 app.get("/profile/update", (req, res) => {
+    const query = req.query; // require :idn key=value
+    const profileId = query._id;
+    delete query._id;
+
+    terminals
+        .findByIdAndUpdate(profileId, query, {new: true})
+        .then(search => {
+            res.send(
+                {
+                    confirmation: "success",
+                    data: search,
+                },
+                console.log(profileId),
+            );
+        })
+        .catch(err => {
+            err.send({
+                confirmation: "fail",
+            });
+        });
     res.send({
         confirm: "success",
         data: "data endpoint",
