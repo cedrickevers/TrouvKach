@@ -3,19 +3,16 @@ function Button() {
     return (
         <div className={"buttons"}>
             <button className={"button"} type={"button"}>
-                {"Add"}{" "}
+                {"Add"}
             </button>
             <button className={"button"} type={"button"}>
-                {" "}
-                {"Update"}{" "}
+                {"Update"}
             </button>
             <button className={"button"} type={"button"}>
-                {" "}
-                {"Delete"}{" "}
+                {"Delete"}
             </button>
             <button className={"button"} type={"button"}>
-                {" "}
-                {"Search"}{" "}
+                {"Search"}
             </button>
         </div>
     );
