@@ -96,6 +96,24 @@ app.get("/profile/update", (req, res) => {
     });
 });
 
+app.get("/profile/remove", (req, res) => {
+    const query = req.query;
+    terminals
+        .findByIdAndRemove(query._id)
+        .then(() => {
+            res.send({
+                confirmation: "success",
+                data: `ATM${query._id} successfuly removed`,
+            });
+        })
+        .catch(err => {
+            res.send({
+                confirmation: "fail",
+                message: err.message,
+            });
+        });
+});
+
 app.get("/atm/[0-9A-Za-z]+", (req, res) => {
     console.log(`(${req.method.toUpperCase()})) ${req.url}`);
 

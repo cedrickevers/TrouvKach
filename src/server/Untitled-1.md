@@ -31,7 +31,7 @@ J'ai changer mongoose.connect pour pouvoir se connecter en localhost
 Changer la route atm pour listr tous les terminaux , gestion d erreur et stringify sur le jeson pour pouvoir lafficher en strign ds le navigateur
 
 
-/*./node_modules/.bin/nodemon src/server/index.js */
+/**/
 
 
 *a = "/atm/10-50"
