@@ -19,8 +19,10 @@ const HelloWorld = () => (
             <Button />
             <Infodisplay />
             <Infodisplaylocation />
+            <img src={"Theimage"} className={"img"} />
         </div>
     </div>
 );
 
 export default HelloWorld;
+//run work:server

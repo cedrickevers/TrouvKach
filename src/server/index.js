@@ -8,18 +8,87 @@
 
 import express from "express";
 import path from "path";
+import mongoose from "mongoose";
+
+//Les dépendances à installer pour avoir la géolocalisation.
+
+const geoip = require("geo-from-ip");
+const publicIp = require("public-ip");
+
+//const where = require("node-where");
 
 const {APP_PORT} = process.env;
-
 const app = express();
-
 app.use(express.static(path.resolve(__dirname, "../../bin/client")));
 
-app.get("/hello", (req, res) => {
-    console.log(`ℹ️  (${req.method.toUpperCase()}) ${req.url}`);
-    res.send("Hello, World!");
-});
+//Indique le port à écouter.
 
 app.listen(APP_PORT, () =>
     console.log(`🚀 Server is listening on port ${APP_PORT}.`),
 );
+
+//Permet l'indentification à la data-base qui dans le containeur-docker appelé mongo.Envoi un message dans la console une fois connecté.
+mongoose
+    .connect("mongodb://mongo:27017/admin", {
+        authSource: "admin",
+        user: "dev",
+        pass: "dev",
+        dbName: "trouvkash", // 'mydb' which is the default selected DB
+        useNewUrlParser: true,
+        reconnectTries: Number.MAX_VALUE,
+        reconnectInterval: 500, // Reconnect every 500ms
+        poolSize: 10, // Maintain up to 10 socket connections
+    })
+    .then(() => {
+        console.log("Success");
+    });
+
+//Permet d'aller chercher le model  des terminals construits dans le dossier model, et l'enregistre dans une variable appelée Terminal.
+const Terminals = require("./models/terminals");
+const Banks = require("./models/banks");
+
+//Lorsque l'on écrit atm dans l'url, il fetch les données depuis mongo et les renvoi.
+
+app.get("/terminals", (req, res) => {
+    console.log(`(${req.method.toUpperCase()})) ${req.url}`);
+    Terminals.find({}, (err, ok) => {
+        if (err) {
+            res.send(
+                JSON.stringify({
+                    error: err,
+                    message: "We cannot retrieve the ATM list",
+                }),
+            );
+        }
+        res.send(JSON.stringify(ok));
+    });
+});
+
+app.get("/banks", (req, res) => {
+    console.log(`(${req.method.toUpperCase()})) ${req.url}`);
+    Banks.find({}, (err, ok) => {
+        if (err) {
+            res.send(
+                JSON.stringify({
+                    error: err,
+                    message: "We cannot retrieve the ATM list",
+                }),
+            );
+        }
+        res.send(JSON.stringify(ok));
+    });
+});
+
+//Tu peux voire dans la console la longitude et la latitude de ton public ip addresse.
+(async () => {
+    let ip = await publicIp.v4();
+    console.log(geoip.allData(ip));
+})();
+
+/* 
+const cors = require('cor;)
+app.use(cors()); => is the core's middleware
+app.use(express.json()) => allow us to parse json.
+
+
+*/
