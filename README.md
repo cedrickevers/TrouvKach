@@ -1,6 +1,33 @@
 # TrouvKach
 
+## The MERN Stack is the folliwing technologies:
+
+Mongodb: A document-based open source database => where the data is stored in Bson Types.
+
+Express: A web application framework for node.js => used to create the Roots => allows us to easily create a webserver.
+
+React: A JS front-end library for buildinf user interfaces.
+
+Node.js: A JS run-time environement that executes JS code outside of the browser => such as on a server.
+
+and Mongoose: a simple, schema-based solution to model application data.
+
+
+
+
+
+
+
+
+
+
 ## Install MONGODB => /!\ It is not a relational database = it is no SQL.It is based on documentation and collections so to add information (called collection here see the following steps).
+
+
+
+
+
+
 
 sudo apt-get upgrade
 
