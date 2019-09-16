@@ -10,13 +10,6 @@ import express from "express";
 import path from "path";
 import mongoose from "mongoose";
 
-//Les dépendances à installer pour avoir la géolocalisation.
-
-const geoip = require("geo-from-ip");
-const publicIp = require("public-ip");
-
-//const where = require("node-where");
-
 const {APP_PORT} = process.env;
 const app = express();
 app.use(express.static(path.resolve(__dirname, "../../bin/client")));
@@ -40,7 +33,7 @@ mongoose
         poolSize: 10, // Maintain up to 10 socket connections
     })
     .then(() => {
-        console.log("Success");
+        console.log("Success mongo");
     });
 
 //Permet d'aller chercher le model  des terminals construits dans le dossier model, et l'enregistre dans une variable appelée Terminal.
@@ -80,15 +73,3 @@ app.get("/banks", (req, res) => {
 });
 
 //Tu peux voire dans la console la longitude et la latitude de ton public ip addresse.
-(async () => {
-    let ip = await publicIp.v4();
-    console.log(geoip.allData(ip));
-})();
-
-/* 
-const cors = require('cor;)
-app.use(cors()); => is the core's middleware
-app.use(express.json()) => allow us to parse json.
-
-
-*/

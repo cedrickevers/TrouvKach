@@ -45,6 +45,7 @@
     "lint-staged": "^9.2.5",
     "node-sass": "^4.12.0",
     "prettier": "^1.18.2",
+    "react-use": "^12.2.0",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
     "uglifyjs-webpack-plugin": "^2.0.1",
@@ -53,11 +54,12 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "geo-from-ip": "^1.2.2",
+    "leaflet": "^1.5.1",
+    "load-script": "^1.0.0",
     "mongoose": "^5.7.1",
-    "public-ip": "^3.2.0",
     "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react-dom": "^16.9.0",
+    "react-leaflet": "^2.4.0"
   },
   "husky": {
     "hooks": {
