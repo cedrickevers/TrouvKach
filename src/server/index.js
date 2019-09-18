@@ -9,14 +9,19 @@
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
+const cors = require('cors');
 
-const APP_PORT = 7777;
+
+const APP_PORT = 7778;
 
 const app = express();
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.json()); // support json encoded bodies
-app.use(bodyParser.urlencoded({extended: true})); // support enco
+app.use(bodyParser.urlencoded({ extended: true })); // support enco
+
+// add cors manage
+app.use(cors())
 
 // Connect Mongodb
 mongoose
@@ -69,55 +74,17 @@ app.get("/atm", (req, res) => {
         res.send(JSON.stringify(ok));
     });
 });
-app.get("/profile/update", (req, res) => {
-    const query = req.query; // require :idn key=value
-    const profileId = query._id;
-    delete query._id;
-
-    terminals
-        .findByIdAndUpdate(profileId, query, {new: true})
-        .then(search => {
-            res.send(
-                {
-                    confirmation: "success",
-                    data: search,
-                },
-                console.log(profileId),
-            );
-        })
-        .catch(err => {
-            err.send({
-                confirmation: "fail",
-            });
-        });
-    res.send({
-        confirm: "success",
-        data: "data endpoint",
-    });
-});
-
-app.get("/profile/remove", (req, res) => {
-    const query = req.query;
-    terminals
-        .findByIdAndRemove(query._id)
-        .then(() => {
-            res.send({
-                confirmation: "success",
-                data: `ATM${query._id} successfuly removed`,
-            });
-        })
-        .catch(err => {
-            res.send({
-                confirmation: "fail",
-                message: err.message,
-            });
-        });
-});
 
 app.get("/atm/[0-9A-Za-z]+", (req, res) => {
     console.log(`(${req.method.toUpperCase()})) ${req.url}`);
-
-    // eslint-disable-next-line prettier/prettier
+    // Grab ID
+    // req.url = /atm/id
+    // req.url.split('/') = [ '', 'atm', 'id' ]
+    // req.url.split('/').length = la grandeur du tableau
+    // Pour avoir le dernier élément il suffit de faire grandeur du tableau - 1
+    //let urlArray = req.url.split('/')
+    //let urlArraySize = req.url.split('/').length
+    //res.send("L'id est " + urlArray[urlArraySize - 1]);
     terminals.findOne({ _id: req.url.split("/")[2] }, (err, ok) => {
         if (err) {
             res.send(
@@ -125,7 +92,7 @@ app.get("/atm/[0-9A-Za-z]+", (req, res) => {
                     error: err,
                     message: `We cannot retrieve the details of ATM ${
                         req.url.split("/")[2]
-                    }`,
+                        }`,
                 }),
             );
         }
@@ -133,7 +100,8 @@ app.get("/atm/[0-9A-Za-z]+", (req, res) => {
     });
 });
 app.post("/atm/[0-9A-Za-z]+", (req, res) => {
-    console.log(`(${req.method.toUpperCase()}))${req.url}`); // choper es param du post
+    console.log(`(${req.method.toUpperCase()})) ${req.url}`);
+    // choper es param du post
     const latitude = req.body.latitude;
     const longitude = req.body.longitude;
     terminals(
@@ -141,46 +109,16 @@ app.post("/atm/[0-9A-Za-z]+", (req, res) => {
             latitude,
             longitude,
         },
-        err => {
+        (err, ok) => {
             console.log(err);
         },
     ).save();
     res.send(`${latitude}+${longitude}`);
 });
-//Checking if db has data
-app.get("/profile", (req, res) => {
-    console.log(`ℹ️  (${req.method.toUpperCase()}) ${req.url}`);
-
-    let filters = req.query;
-    if (req.query.latitude != null) {
-        filters = {
-            latitude: {$gt: req.query.latitude},
-        };
-    }
-    terminals
-        .find(filters)
-        .then(search => {
-            res.send({
-                confirmation: "success",
-                data: search,
-            });
-        })
-        .catch(err => {
-            err.send({
-                confirmation: "fail",
-            });
-        });
-});
-app.get("/profile:/id", (req, res) => {
-    console.log(`ℹ️  (${req.method.toUpperCase()}) ${req.url}`);
-
-    const id = req.params.id;
-    res.send({
-        confirmation: "ok",
-        data: id,
-    });
-});
 
 app.listen(APP_PORT, () =>
     console.log(`🚀 Server is listening on port ${APP_PORT}.`),
 );
+ 
+
+/*./node_modules/.bin/nodemon src/server/index.js */
