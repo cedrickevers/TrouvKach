@@ -1,0 +1,16 @@
+.leaflet-map-container {
+    height: 500px;
+}
+
+
+.leaflet-map {
+    height: 500px;
+}
+
+.react-form {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    z-index: 9999;
+
+}
