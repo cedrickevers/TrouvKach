@@ -59,20 +59,35 @@ app.get("/hello", (req, res) => {
     console.log(`ℹ️  (${req.method.toUpperCase()}) ${req.url}`);
     res.send("change le !");
 });
-// List all atm
+/ List all atm
 app.get("/atm", (req, res) => {
-    console.log(`(${req.method.toUpperCase()})) ${req.url}`);
-    terminals.find({}, (err, ok) => {
-        if (err) {
-            res.send(
-                JSON.stringify({
-                    error: err,
-                    message: "We cannot retrieve the ATM list",
-                }),
-            );
-        }
-        res.send(JSON.stringify(ok));
-    });
+  console.log((${req.method.toUpperCase()})) ${req.url});
+  // /atm?latitude=xxx&longitude=yyy
+  // req.query.latitude => xxx
+  // req.query.longitude => yyy
+  // .find({ latitude: { $gt: 40.505, $lt: 60.505}, longitude: { $gt: -5.09, $lt: 5.09} } )
+  let latGT = parseFloat(req.query.latitude) - 0.1
+  let lngGT = parseFloat(req.query.longitude) - 0.5
+  let lngLT = parseFloat(req.query.longitude) + 0.25
+  let latLT = parseFloat(req.query.latitude) + 0.25
+  
+
+  terminals.find({
+    latitude: { $gt: latGT, $lt: latLT },
+    longitude: {
+      $gt: lngGT, $lt: lngLT
+    }
+  }, (err, ok) => {
+    if (err) {
+      res.send(
+        JSON.stringify({
+          error: err,
+          message: "We cannot retrieve the ATM list",
+        }),
+      );
+    }
+    res.send(JSON.stringify(ok));
+  });
 });
 
 app.get("/atm/[0-9A-Za-z]+", (req, res) => {
