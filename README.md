@@ -23,7 +23,7 @@ and Mongoose: a simple, schema-based solution to model application data.
 
 We had many issues with the concept of communicate with the db fetch data use thems,mixingsevery aspect of the projects together and a organisation problems. It was thought but in the end i think veryone has learn a lot of including his own weakness ! Let's use this failure to make next project a succèss !
 
-###What I have done on the project
+### What I have done on the project
 
 What is done: display users geocalisation on a map and list nearby atm.
 The design is in done in test-front but not incorpored in th projetct due to many probleme and short of time.
