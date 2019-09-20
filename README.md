@@ -1,4 +1,10 @@
-# TrouvKach
+
+# TrouvKach How to use
+ run parcel src/index.html , docker-compose up and then /*./node_modules/.bin/nodemon src/server/index.js */
+
+Should run on localhost:1234
+
+
 
 ## The MERN Stack is the folliwing technologies:
 
@@ -13,7 +19,7 @@ Node.js: A JS run-time environement that executes JS code outside of the browser
 and Mongoose: a simple, schema-based solution to model application data.
 
 
-##My personal review on the project (Cédric)
+## My personal review on the project (Cédric)
 
 We had many issues with the concept of communicate with the db fetch data use thems,mixingsevery aspect of the projects together and a organisation problems. It was thought but in the end i think veryone has learn a lot of including his own weakness ! Let's use this failure to make next project a succèss !
 
