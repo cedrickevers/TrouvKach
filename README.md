@@ -13,6 +13,25 @@ Node.js: A JS run-time environement that executes JS code outside of the browser
 and Mongoose: a simple, schema-based solution to model application data.
 
 
+##My personal review on the project (Cédric)
+
+We had many issues with the concept of communicate with the db fetch data use thems,mixingsevery aspect of the projects together and a organisation problems. It was thought but in the end i think veryone has learn a lot of including his own weakness ! Let's use this failure to make next project a succèss !
+
+###What I have done on the project
+
+What is done: display users geocalisation on a map and list nearby atm.
+The design is in done in test-front but not incorpored in th projetct due to many probleme and short of time.
+
+I've Commented the image node in docker.compose.yml => to make my life, I'm sorry... (facilitate acess db) basicily the image node launches the site on a port (12345) and it makes a transfer from port 80 to that port there. The fact of the enelver makes that we connect directly to the mango docker db 
+
+I have changed the import requirements to bp of accounting for sth. as well.
+
+I changed mongoose.connect to be able to connect localhost
+Change the atm route to list all terminals, error handling and stringify on the jeson to be able to display it in strign in the browser
+
+
+
+
 
 
 
