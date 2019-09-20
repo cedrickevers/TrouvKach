@@ -9,8 +9,7 @@
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
-const cors = require('cors');
-
+const cors = require("cors");
 
 const APP_PORT = 7778;
 
@@ -18,10 +17,10 @@ const app = express();
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.json()); // support json encoded bodies
-app.use(bodyParser.urlencoded({ extended: true })); // support enco
+app.use(bodyParser.urlencoded({extended: true})); // support enco
 
 // add cors manage
-app.use(cors())
+app.use(cors());
 
 // Connect Mongodb
 mongoose
@@ -59,20 +58,37 @@ app.get("/hello", (req, res) => {
     console.log(`ℹ️  (${req.method.toUpperCase()}) ${req.url}`);
     res.send("change le !");
 });
-// List all atm
+//List all atm
 app.get("/atm", (req, res) => {
-    console.log(`(${req.method.toUpperCase()})) ${req.url}`);
-    terminals.find({}, (err, ok) => {
-        if (err) {
-            res.send(
-                JSON.stringify({
-                    error: err,
-                    message: "We cannot retrieve the ATM list",
-                }),
-            );
-        }
-        res.send(JSON.stringify(ok));
-    });
+    // /atm?latitude=xxx&longitude=yyy
+    // req.query.latitude => xxx
+    // req.query.longitude => yyy
+    // .find({ latitude: { $gt: 40.505, $lt: 60.505}, longitude: { $gt: -5.09, $lt: 5.09} } )
+    let latGT = parseFloat(req.query.latitude) - 0.1;
+    let lngGT = parseFloat(req.query.longitude) - 0.5;
+    let lngLT = parseFloat(req.query.longitude) + 0.25;
+    let latLT = parseFloat(req.query.latitude) + 0.25;
+
+    terminals.find(
+        {
+            latitude: {$gt: latGT, $lt: latLT},
+            longitude: {
+                $gt: lngGT,
+                $lt: lngLT,
+            },
+        },
+        (err, ok) => {
+            if (err) {
+                res.send(
+                    JSON.stringify({
+                        error: err,
+                        message: "We cannot retrieve the ATM list",
+                    }),
+                );
+            }
+            res.send(JSON.stringify(ok));
+        },
+    );
 });
 
 app.get("/atm/[0-9A-Za-z]+", (req, res) => {
@@ -85,14 +101,14 @@ app.get("/atm/[0-9A-Za-z]+", (req, res) => {
     //let urlArray = req.url.split('/')
     //let urlArraySize = req.url.split('/').length
     //res.send("L'id est " + urlArray[urlArraySize - 1]);
-    terminals.findOne({ _id: req.url.split("/")[2] }, (err, ok) => {
+    terminals.findOne({_id: req.url.split("/")[2]}, (err, ok) => {
         if (err) {
             res.send(
                 JSON.stringify({
                     error: err,
                     message: `We cannot retrieve the details of ATM ${
                         req.url.split("/")[2]
-                        }`,
+                    }`,
                 }),
             );
         }
@@ -119,6 +135,5 @@ app.post("/atm/[0-9A-Za-z]+", (req, res) => {
 app.listen(APP_PORT, () =>
     console.log(`🚀 Server is listening on port ${APP_PORT}.`),
 );
- 
 
 /*./node_modules/.bin/nodemon src/server/index.js */

@@ -1,6 +1,6 @@
 import * as React from "react";
 import ReactDOM from "react-dom";
-import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import {Map, TileLayer, Marker, Popup} from "react-leaflet";
 import l from "leaflet";
 import {
     Card,
@@ -50,7 +50,6 @@ class App extends React.Component {
     };
 
     componentDidMount() {
-
         navigator.geolocation.getCurrentPosition(position => {
             this.setState({
                 location: {
@@ -60,12 +59,15 @@ class App extends React.Component {
                 haveUsersLocation: true,
                 zoom: 15,
             });
-            fetch("http://localhost:7778/atm?latitude=" + this.state.location.lat + "&longitude=" + this.state.location.lng)
+            fetch(
+                "http://localhost:7778/atm?latitude=" +
+                    this.state.location.lat +
+                    "&longitude=" +
+                    this.state.location.lng,
+            )
                 .then(response => response.json())
-                .then(listATM => this.setState({ listATM }));
+                .then(listATM => this.setState({listATM}));
         });
-
-
     }
     formSubmitted = event => {
         event.preventDefault();
@@ -73,20 +75,15 @@ class App extends React.Component {
 
     renderMarker(listATM) {
         if (listATM != null) {
-            console.log(listATM)
-            return (
-                listATM.map((value, index) => (
-                    <Marker
-                        key={value._id}
-                        position={[value.latitude, value.longitude]}
-                        icon={myIconATM}
-                    >
-                        <Popup key={index}>
-                            {value.address}
-                        </Popup>
-                    </Marker>
-                )
-                ))
+            console.log(listATM);
+            return listATM.map((value, index) => (
+                <Marker
+                    key={value._id}
+                    position={[value.latitude, value.longitude]}
+                    icon={myIconATM}>
+                    <Popup key={index}>{value.address}</Popup>
+                </Marker>
+            ));
         }
     }
 
@@ -107,42 +104,11 @@ class App extends React.Component {
                     />
                     <Marker position={position} icon={myIcon}>
                         <Popup>
-                            A pretty CSS3 popup. <br /> Easily customizable.
+                            You are here. <br /> Yes, news go fast these days...
                         </Popup>
                     </Marker>
                     {this.renderMarker(listATM)}
                 </Map>
-
-                <Card body className={"react-form"}>
-                    <CardTitle>Special Title Treatment</CardTitle>
-                    <CardText>
-                        With supporting text below as a natural lead-in to
-                        additional content.
-                    </CardText>
-                    <Button>Go somewhere</Button>
-                    <Form onSubmit={this.formSbmitted}>
-                        <FormGroup>
-                            <Label for={"exampleEmail"} sm={2}>
-                                Email
-                            </Label>
-                            <Col sm={10}>
-                                <Input
-                                    type={"email"}
-                                    name={"email"}
-                                    id={"exampleEmail"}
-                                    placeholder={"with a placeholder"}
-                                />
-                            </Col>
-                        </FormGroup>
-                        <Button
-                            type={"submit"}
-                            color={"info"}
-                            disabled={!this.state.haveUsersLocation}>
-                            {" "}
-                            Send
-                        </Button>
-                    </Form>
-                </Card>
             </div>
         );
     }
